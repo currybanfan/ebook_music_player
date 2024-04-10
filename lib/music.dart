@@ -189,7 +189,8 @@ class MusicItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final globalPlayer = Provider.of<MusicService>(context, listen: false);
+    // 透過 Provider.of 方法從當前上下文中取得 MusicService 的實例
+    final musicService = Provider.of<MusicService>(context, listen: false);
 
     const titleColor = Color.fromARGB(255, 255, 237, 237);
     const subtitleColor = Color.fromARGB(255, 151, 150, 150);
@@ -225,14 +226,13 @@ class MusicItemWidget extends StatelessWidget {
               icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
               onPressed: () async {
                 if (isPlaying) {
-                  // 如果正在播放，則暫停
-
-                  globalPlayer.pauseMusic();
+                  // 如果正在播放，則調用 MusicService 實例的 pauseMusic 方法來暫停音樂
+                  musicService.pauseMusic();
                 } else {
-                  // 否則，播放目前音樂
-
-                  onPlay(index); // 更新撥放清單
-                  globalPlayer.playMusicAtIndex(index);
+                  // 否則，調用 playMusicAtIndex 方法來播放選中的音樂。
+                  // onPlay(index) 是一個回調函數，負責根據點擊的項目索引更新播放列表或狀態
+                  onPlay(index);
+                  musicService.playMusicAtIndex(index);
                 }
               },
             ),
@@ -357,7 +357,7 @@ class _MusicControlPanelState extends State<MusicControlPanel> {
               overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
             ),
             child: Slider(
-              value: currentPosition, // 目前播放進度
+              value: currentPosition > duration ? 0 : currentPosition, // 目前播放進度
               min: 0.0,
               max: duration == 0.0 ? 1.0 : duration,
               activeColor: activeColor,
