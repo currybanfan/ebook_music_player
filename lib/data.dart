@@ -1,8 +1,8 @@
 class Music {
-  String path;
-  String artist;
-  String album;
-  String name;
+  String path; // 音樂文件的路徑
+  String artist; // 藝術家名稱
+  String album; // 專輯名稱
+  String name; // 歌曲名稱
 
   Music({
     required this.path,
@@ -12,6 +12,7 @@ class Music {
   });
 }
 
+// 存儲 Music 對象的清單
 List<Music> musicData = [
   Music(
       path: 'sounds/Cold_Hearted.mp3',
@@ -119,5 +120,8 @@ final Map<String, String> albumLocalPath = {
   'strodo': 'assets/images/strodo.jpg',
 };
 
+// 從 musicData 清單中提取所有藝術家名稱，移除重複項，並轉換成清單
 List<String> artists = musicData.map((m) => m.artist).toSet().toList();
+
+// 從 musicData 清單中提取所有專輯名稱，移除重複項，並轉換成清單
 List<String> albums = musicData.map((m) => m.album).toSet().toList();

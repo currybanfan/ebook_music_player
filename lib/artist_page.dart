@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'music_list_page.dart';
 import 'data.dart';
 
+/// 歌手頁面，根據歌手來分類音樂
+/// 使用了 GridView.builder 來動態產生格狀佈局
+/// 每個格子都是可點擊的，點擊後根據歌手過濾音樂數據，並導航到 MusicListPage
 class ArtistPage extends StatelessWidget {
   const ArtistPage({super.key});
 
@@ -9,7 +12,7 @@ class ArtistPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Expanded(flex: 1, child: SizedBox()),
+        const Expanded(flex: 1, child: SizedBox()), // 用於佔位
         const Expanded(
           flex: 1,
           child: Text(
@@ -25,18 +28,20 @@ class ArtistPage extends StatelessWidget {
           flex: 10,
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.8,
+              crossAxisCount: 2, // 每行兩列
+              childAspectRatio: 0.8, // 子項目的寬高比
             ),
-            itemCount: artists.length, // 假設artists是一個包含所有歌手信息的列表
+            itemCount: artists.length, // 歌手數量
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
+                  // 根據選中的歌手過濾音樂數據
                   List<Music> filteredByArtist = musicData
                       .where((music) => music.artist == artists[index])
                       .toList();
-                  String title = artists[index];
+                  String title = artists[index]; // 歌手名稱
 
+                  // 導航到音樂列表頁面，傳遞過濾後的音樂列表
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => MusicListPage(
@@ -62,9 +67,10 @@ class ArtistPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20), // 圖片圓角
                             child: SizedBox.fromSize(
                               size: const Size.fromRadius(48), // 圖片尺寸
+                              // 根據歌手名稱載入對應的圖片資源，並填滿容器
                               child: Image.asset(
                                   artistLocalPath[artists[index]]!,
-                                  fit: BoxFit.cover), // 載入並顯示圖片
+                                  fit: BoxFit.cover),
                             ),
                           ),
                         ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'music.dart';
 import 'data.dart';
 
+/// 使用 Navigator 導航的頁面
+/// 透過傳入不同的 music list 建構 page
 class MusicListPage extends StatelessWidget {
   final List<Music> musics;
   final String title;
@@ -20,7 +22,9 @@ class MusicListPage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       backgroundColor: const Color.fromARGB(255, 16, 55, 60),
+      // 顯示音樂清單
       body: MusicListWidget(musics: musics),
+      // 底部為音樂控制面板
       bottomSheet: const MusicControlPanel(),
     );
   }

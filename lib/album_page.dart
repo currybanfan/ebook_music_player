@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'music_list_page.dart';
 import 'data.dart';
 
+/// 專輯頁面，根據專輯來分類音樂
+/// 使用了 GridView.builder 來動態產生格狀佈局
+/// 每個格子都是可點擊的，點擊後根據專輯過濾音樂數據，並導航到 MusicListPage
 class AlbumPage extends StatelessWidget {
   const AlbumPage({super.key});
 
@@ -9,7 +12,7 @@ class AlbumPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Expanded(flex: 1, child: SizedBox()),
+        const Expanded(flex: 1, child: SizedBox()), // 用於佔位
         const Expanded(
           flex: 1,
           child: Text(
@@ -25,18 +28,21 @@ class AlbumPage extends StatelessWidget {
           flex: 10,
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.8,
+              crossAxisCount: 2, // 每行兩列
+              childAspectRatio: 0.8, // 子項目的寬高比
             ),
-            itemCount: albums.length,
+            itemCount: albums.length, // 專輯數量
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
+                  // 根據選中的專輯過濾音樂數據
+
                   List<Music> filteredByAlbum = musicData
                       .where((music) => music.album == albums[index])
                       .toList();
-                  String title = albums[index];
+                  String title = albums[index]; // 專輯名稱
 
+                  // 導航到音樂列表頁面，傳遞過濾後的音樂列表
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => MusicListPage(
