@@ -243,6 +243,9 @@ class MusicItemWidget extends StatelessWidget {
   }
 }
 
+const double musicControlPanelUnExpandHeight = 80.0;
+const double musicControlPanelExpandHeight = 150.0;
+
 /// 定義一個有狀態的底部音樂控制面板
 /// 透過使用 Provider，此控制面板能夠存取和控制全域的音樂播放狀態
 class MusicControlPanel extends StatefulWidget {
@@ -253,7 +256,7 @@ class MusicControlPanel extends StatefulWidget {
 }
 
 class _MusicControlPanelState extends State<MusicControlPanel> {
-  bool isExpanded = true; // 控制面板是否展开
+  bool isExpanded = false; // 控制面板是否展开
 
   @override
   Widget build(BuildContext context) {
@@ -288,7 +291,7 @@ class _MusicControlPanelState extends State<MusicControlPanel> {
     final currentPosition = musicService.currentPosition.inSeconds.toDouble();
 
     return Container(
-      height: 150,
+      height: musicControlPanelExpandHeight,
       decoration: const BoxDecoration(
         color: Color.fromARGB(255, 24, 39, 46),
         // 圆角
@@ -383,7 +386,7 @@ class _MusicControlPanelState extends State<MusicControlPanel> {
     final currentMusic = musicService.currentMusic;
 
     return Container(
-      height: 80,
+      height: musicControlPanelUnExpandHeight,
       decoration: const BoxDecoration(
         color: Color.fromARGB(255, 24, 39, 46),
         // 圆角
@@ -402,12 +405,16 @@ class _MusicControlPanelState extends State<MusicControlPanel> {
                 crossAxisAlignment: CrossAxisAlignment.start, // 文字靠左對齊
                 mainAxisAlignment: MainAxisAlignment.center, // 垂直居中
                 children: [
-                  // 音樂名稱
-                  Text(currentMusic.name,
-                      style: const TextStyle(color: titleColor, fontSize: 16)),
-                  // 作者、專輯名稱
-                  Text('${currentMusic.artist} - ${currentMusic.album}',
-                      style: const TextStyle(color: subtitleColor)),
+                  // 如果有當前音樂，展示音樂訊息
+                  if (currentMusic != null) ...[
+                    // 音樂名稱
+                    Text(currentMusic.name,
+                        style:
+                            const TextStyle(color: titleColor, fontSize: 16)),
+                    // 作者、專輯名稱
+                    Text('${currentMusic.artist} - ${currentMusic.album}',
+                        style: const TextStyle(color: subtitleColor)),
+                  ],
                 ],
               ),
             ),

@@ -23,7 +23,11 @@ class MusicListPage extends StatelessWidget {
       ),
       backgroundColor: const Color.fromARGB(255, 16, 55, 60),
       // 顯示音樂清單
-      body: MusicListWidget(musics: musics),
+      body: Padding(
+        padding: const EdgeInsets.only(
+            bottom: musicControlPanelUnExpandHeight), // 增加足夠的底部內邊距
+        child: MusicListWidget(musics: musics),
+      ),
       // 底部為音樂控制面板
       bottomSheet: const MusicControlPanel(),
     );
