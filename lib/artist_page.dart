@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './music.dart';
-import './data.dart';
+import 'music_list_page.dart';
+import 'data.dart';
 
 class ArtistPage extends StatelessWidget {
   const ArtistPage({super.key});

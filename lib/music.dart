@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:provider/provider.dart';
-import './data.dart';
+import 'data.dart';
 
 class GlobalMusicPlayerModel extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -57,7 +57,7 @@ class GlobalMusicPlayerModel extends ChangeNotifier {
     _currentMusic = _playlist![_currentIndex];
     _isPlaying = true;
     notifyListeners();
-    _play(_currentMusic!); // 假设 MusicService 的 play 方法已经被适当修改
+    _play(_currentMusic!);
   }
 
   void playNext() {
@@ -206,30 +206,6 @@ class MusicItemWidget extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class MusicListPage extends StatelessWidget {
-  final List<Music> musics;
-  final String title;
-
-  const MusicListPage({super.key, required this.musics, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 8, 38, 42),
-        title: Text(
-          title,
-          style: const TextStyle(color: Colors.white), // 為副標題文字設置TextStyle並指定顏色
-        ),
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
-      backgroundColor: const Color.fromARGB(255, 16, 55, 60),
-      body: MusicListWidget(musics: musics),
-      bottomSheet: const MusicControlPanel(),
     );
   }
 }

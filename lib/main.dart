@@ -1,9 +1,9 @@
 import 'package:ebook_app/music.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './artist_page.dart';
-import './album_page.dart';
-import './song_page.dart';
+import 'artist_page.dart';
+import 'album_page.dart';
+import 'song_page.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -22,19 +22,17 @@ class MusicPlayerApp extends StatefulWidget {
 }
 
 class MusicPlayerAppState extends State<MusicPlayerApp> {
-  int _currentIndex = 0; // 用來追蹤目前選擇的頁面索引
+  int _currentIndex = 0;
 
-  // 定義一個widget列表，這裡放置了應用中所有的頁面
   final List<Widget> _children = [
-    ArtistPage(), // 歌手分類的頁面
-    AlbumPage(), // 專輯分類的頁面
-    SongPage(), // 所有歌曲的頁面
+    const ArtistPage(), // 歌手分類的頁面
+    const AlbumPage(), // 專輯分類的頁面
+    const SongPage(), // 所有歌曲的頁面
   ];
 
-  // 處理底部導航欄項目的點擊事件
   void onTabTapped(int index) {
     setState(() {
-      _currentIndex = index; // 更新目前選擇的索引值
+      _currentIndex = index;
     });
   }
 
@@ -48,8 +46,6 @@ class MusicPlayerAppState extends State<MusicPlayerApp> {
           data: ThemeData(
             // 去掉水波纹效果
             splashColor: Colors.transparent,
-            // 去掉长按效果
-            // highlightColor: Colors.transparent,
           ),
           child: BottomNavigationBar(
             backgroundColor:

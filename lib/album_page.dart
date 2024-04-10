@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './music.dart';
-import './data.dart';
+import 'music_list_page.dart';
+import 'data.dart';
 
 class AlbumPage extends StatelessWidget {
   const AlbumPage({super.key});
@@ -28,7 +28,7 @@ class AlbumPage extends StatelessWidget {
               crossAxisCount: 2,
               childAspectRatio: 0.8,
             ),
-            itemCount: albums.length, // 假設artists是一個包含所有歌手信息的列表
+            itemCount: albums.length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
