@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+import './music.dart';
+import './data.dart';
+
+class ArtistPage extends StatelessWidget {
+  const ArtistPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Expanded(flex: 1, child: SizedBox()),
+        const Expanded(
+          flex: 1,
+          child: Text(
+            '歌手',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 10,
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.8,
+            ),
+            itemCount: artists.length, // 假設artists是一個包含所有歌手信息的列表
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  List<Music> filteredByArtist = musicData
+                      .where((music) => music.artist == artists[index])
+                      .toList();
+                  String title = artists[index];
+
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => MusicListPage(
+                        musics: filteredByArtist,
+                        title: title,
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                  color: Colors.transparent,
+                  margin: const EdgeInsets.all(8.0), // 為項目增加一些間距
+                  child: Column(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 1, // 確保圖片區域是正方形
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20), // 容器圓角
+                            color: Colors.green, // 容器背景顏色
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20), // 圖片圓角
+                            child: SizedBox.fromSize(
+                              size: const Size.fromRadius(48), // 圖片尺寸
+                              child: Image.asset(
+                                  artistLocalPath[artists[index]]!,
+                                  fit: BoxFit.cover), // 載入並顯示圖片
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        // 文字內容部分
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Center(
+                          child: Text(
+                            artists[index], // 顯示項目索引
+                            style: const TextStyle(
+                                fontSize: 16, // 文字大小
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        )
+      ],
+    );
+  }
+}
